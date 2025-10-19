@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+package temperature;
+option go_package = ".;temperature";
+
+service TemperatureService {
+    rpc PushTemperature(TemperatureRequest) returns (google.protobuf.Empty);
+    rpc StreamTemperature(StreamRequest) returns (stream TemperatureResponse);
+}
+
+message TemperatureRequest {
+    double value = 1;
+    google.protobuf.Timestamp timestamp = 2;
+}
+
+message TemperatureResponse {
+    double value = 1;
+    google.protobuf.Timestamp timestamp = 2;
+}
+
+message StreamRequest {}
